@@ -1,0 +1,42 @@
+            $(document).on('submit','#Updateproductform',function(event){
+                event.preventDefault();
+                let pname=$('#pname').val();
+                let subcat_id=$('#subcat_id').val();
+                
+               alert(pname);
+                
+                let formData = new FormData(this);
+                formData.append('id',id);
+                formData.append('pname',pname);
+                formData.append('cat_id',cat_id);
+                formData.append('subcat_id',subcat_id);
+                formData.append('tags',tags);
+                formData.append('exchange',exchange);
+                formData.append('refund',refund);
+                formData.append('pimage',pimage);
+                formData.append('ptumbnail',ptumbnail);
+                formData.append('pvideo',pvideo);
+                formData.append('shipweight',shipweight);
+                formData.append('price',price);
+                formData.append('stock',stock);
+                formData.append('quantity',quantity);
+                formData.append('pagetitle',pagetitle);
+                formData.append('metadesc',metadesc);
+                formData.append('meta_url',meta_url);
+                $.ajax({
+                    url:"{{route('update.product')}}",
+                    method:'post',
+                    data: formData,
+                    cache:false,
+                    contentType: false,
+                    processData: false,
+
+                    success: function(response) {
+                
+                    },
+                    error: function(response){
+                    console.log(response);
+                    }
+
+                })
+            });

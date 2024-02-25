@@ -1,0 +1,17 @@
+Blade---------->
+<a href="{{url('/getproduct',['product_id'=>$getProductTodaydata->id,'category_id'=>$getProductTodaydata->cat_id])}}" >
+          <i data-feather="eye"></i>
+</a>
+
+
+web.php------------>
+Route::get("/getproduct/{product_id}/{category_id}",[SiteController::class,"getSingleproduct"]);
+
+
+Controller------------>
+function getSingleproduct(Request $request, $productId,$catId){
+        $getSingleProduct = Addproduct::where('id',$productId)->get();
+        $getCatProduct = Addproduct::with('category')->where('cat_id',$catId)->get();
+
+        return view("user.product_left_thumbnail",['getSingleProduct'=>$getSingleProduct,'getCatProduct'=>$getCatProduct]);
+    }

@@ -1,0 +1,47 @@
+            //  depending subcategory dropdown  
+            $(document).on('change','#cat_id',function(event){
+                event.preventDefault();
+                let cat_id=$('#cat_id').val();
+                alert(cat_id);
+
+                $.ajax({
+                    url:"{{ route('get.subcat') }}",
+                    type:'post',
+                    data:{
+                        cat_id:cat_id,
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+
+                    success:function(response){
+                        $('#subcat_id').html('<option value="">Select State</option>');
+                        $.each(response.subcategorys,function(index, val){
+                        $('#subcat_id').append('<option value="'+val.id+'"> '+val.subcatname+' </option>')
+                        });
+                    }
+                })
+            })
+
+
+---------------------------
+
+
+web.php
+// for get subcategory 
+Route::post("/getsubcat",[AddProductController::class,"getsubcategory"])->name('get.subcat');
+
+
+Controller 
+public function getsubcategory(Request $request){
+    $getsubcat['subcategorys'] =Addsubcatgeory::where('addcat_id',$request->cat_id)->get(['subcatname','id']);
+    return response()->json($getsubcat);
+}
+
+
+
+https://tutorial101.blogspot.com/2022/09/laravel-9-country-state-city-dropdown.html
+
+
+
+

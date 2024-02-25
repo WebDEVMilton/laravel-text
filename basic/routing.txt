@@ -1,0 +1,75 @@
+
+
+create controller-->
+
+php artisan make:contorller controllername
+
+
+
+-->Basic Routing With Controller
+
+
+use App\Http\Controllers\demoController;
+
+Route::get('/', [UserController::class, 'index']);
+
+
+
+Basic Routing With Controller And View	
+
+
+
+
+
+-->Basic Routing With href Link
+
+<a href="{{('')}}">home </a></br>
+
+
+
+
+
+
+
+
+-->Basic Routing With Parameter
+
+Route::get('/demo/{name}',[demoController::class,'singlepara']);
+
+	
+
+
+-->Basic Routing With Multiple Parameter
+
+Route::get('/demomulti/{fname}/{midname}/{lname}',[demoController::class,'multipara']);
+
+
+
+
+-->Basic Routing Parameter Controller To View
+
+Route::get('/demomultiview/{fname}/{midname}/{lname}',[demoController::class,'multiparaview']);
+
+
+controller:
+
+function multiparaview($fname,$midname,$lname){
+        return view("demo",['fnamekey'=>$fname,'midnamekey'=>$midname,
+        'lnamekey'=>$lname,
+    ]);
+
+    }
+
+
+
+
+
+Basic Routing Group
+
+
+
+Route::group([],callback());
+
+
+
+	

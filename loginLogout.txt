@@ -1,0 +1,15 @@
+@if(auth()->check())
+           {{-- User is logged in --}}
+          <a href="{{ route('user.logout') }}">Log Out</a>
+@else
+  {{-- User is a guest --}}
+    <a href="{{route('login.page')}}">Log In</a>
+ 
+@endif
+
+
+---------->
+@if(auth()->check())
+  {{-- User is logged in --}}
+  <a href="{{ route('user.dashboard', ['id' => auth()->user()->id, 'name' => auth()->user()->name]) }}">Profile</a>
+@endif

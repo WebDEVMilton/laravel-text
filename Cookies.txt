@@ -1,0 +1,16 @@
+Cookies------------------>
+
+
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Str; 
+
+
+
+
+
+$uuid = Str::uuid();
+        $response = new Response();
+
+$addcart->cookiesid = $response->cookie('cookie_constant', $uuid, 1);

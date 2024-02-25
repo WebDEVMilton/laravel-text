@@ -1,0 +1,19 @@
+page expired------>
+add @csrf
+
+
+controller ----------->
+
+$userinfo=Auth::guard('web')->user();
+return redirect(url('/user/user-dashboard',["id"=>$userinfo->id,"name"=>$userinfo->name]));
+
+header token missmatch-------->
+add ajax header
+
+
+Uncaught ReferenceError: can't access lexical declaration 'formData' before initialization------>
+Wrong way------>
+let formData = new formData(this); //Formdata should be like this
+
+Right way------->
+let formData = new FormData(this);

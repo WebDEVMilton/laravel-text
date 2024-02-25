@@ -1,0 +1,96 @@
+//composer require doctrine/dbal
+
+
+
+modify:
+
+data type
+
+Schema::table('students',function(Blueprint $table){
+            $table->string('name',1000)->change();
+            $table->string('roll',1000)->change();
+            $table->string('class',1000)->change();
+        });
+
+
+rename column:
+
+
+Schema::table('students',function(Blueprint $table){
+            $table->renameColumn('name', 'student_name');
+        });
+
+
+        Schema::table('all_table',function(Blueprint $table){
+            $table->renameColumn('city', 'my_city');
+        });
+
+
+
+drop column:
+
+
+ Schema::table('students',function(Blueprint $table){
+            $table->dropColumn(['created_at','updated_at']);
+        });
+
+
+        Schema::table('all_table',function(Blueprint $table){
+            $table->dropColumn(['created_at','confirmed']);
+        });
+
+
+table rename:
+
+
+Schema::rename('students','students_new');
+        Schema::rename('all_table','all_table_new');
+
+
+drop table:
+
+ Schema::dropIfExists('all_table_new');
+        Schema::dropIfExists('students_new');
+
+
+
+
+
+
+
+
+use Illuminate\Support\Facades\DB;
+
+
+class RetriveController extends Controller
+{
+    function selectAllRows(){
+        $result= DB::table('students')->get();
+        return  json_encode( $result);
+    }
+
+    function selectOneRows(){
+         $result= DB::table('students')->where('name','=','Karim')->first();
+         return  json_encode( $result);
+     }
+
+     function findRows(){
+        $result= DB::table('students')->find(12);
+        return  json_encode( $result);
+    }
+
+    function selectOneColumn(){
+        $result= DB::table('students')->pluck('name');
+        return  json_encode( $result);
+    }
+
+    function selectMultiColumn(){
+        $result= DB::table('students')->pluck('name','id');
+        return  json_encode( $result);
+    }
+
+    function specificData(){
+        $result= DB::table('students')->where('id','=','9')->value('name');
+        return  json_encode( $result);
+    }
+   

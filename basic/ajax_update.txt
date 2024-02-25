@@ -1,0 +1,285 @@
+Ajax update--->
+
+
+new modal creat-->
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateModalLabel">update product</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <div id="ErroMsg">
+
+        <ul type="none"><li ></li></ul>
+           
+
+        </div>
+
+        <div id="successMes">
+           
+
+        </div>
+       
+       
+        
+
+       <form action="" method="post" id="addproduct">
+         @csrf
+         <input  type="hidden"  id="up_id" >
+         <div class="form">
+           <label for="">Product Name</label>
+           <input  type="text" name="up_pname" id="up_pname" >
+         </div>
+
+         <div class="form mt-3">
+           <label for="">Product price</label>
+           <input type="text" name="up_price" id="up_price" >
+         </div>
+         
+       </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary update_product">update product</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+blade page changes->
+
+  <a href="" class="btn btn-success update_product_input" 
+       data-bs-toggle="modal" 
+       data-bs-target="#updateModal"
+       data-id="{{$product->id}}"
+       data-pname="{{$product->pname}}"
+       data-price="{{$product->price}}"
+
+       >
+
+
+
+Ajax for Select individual data-->
+
+
+
+
+
+            $(document).on('click','.update_product_input',function(event){
+               
+                
+               let id= $(this).data('id');
+               let pname= $(this).data('pname');
+               let price= $(this).data('price');
+
+               $('#up_id').val(id)
+               $('#up_pname').val(pname)
+               $('#up_price').val(price)
+              // alert(JSON.stringify(pname+price));
+
+
+
+
+
+       
+      });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+update-->
+
+ajax-->
+
+$(document).on('click','.update_product',function(event){
+                event.preventDefault();
+                let up_id= $('#up_id').val();
+                 let up_pname= $('#up_pname').val();
+                 let up_price= $('#up_price').val();
+                // alert(JSON.stringify(pname+price));
+
+                $.ajax(
+                    {
+                        url:"{{route('update.product')}}",
+                        method:"post",
+                        data:{
+                            up_id:up_id,
+                            up_pname:up_pname,
+                            up_price:up_price,
+                        },
+                        success:function(response){
+
+                           // $('#successMes').append('<span class="text-success">Data insert success</span>');
+
+                          if(response.status="success"){
+                            $('#updateModal').modal('hide');
+                            $('#updateproduct')[0].reset();
+                            $('.table').load(location.href+' .table');
+
+                          }
+
+                        },
+                        error:function(error){
+                            $("#ErroMsg").find("ul").html('');
+                            $.each(error.responseJSON.errors, function(key, value ) {
+                            $('#ErroMsg').find("ul").append('<li class="text-danger" >'+value+'</li>');
+                    });
+
+
+                        }
+
+
+
+                   }
+
+
+
+                );
+
+
+
+            }
+
+
+
+            );
+
+
+
+
+
+
+controller-->
+
+public function updateProduct(Request $request){
+
+        $request->validate([
+            'up_pname'          => 'required',
+            'up_price'          => 'required',
+        ]);
+
+         Product::where('id',$request->up_id)->update([
+
+            'pname'=> $request->up_pname,
+            'price' => $request->up_price,
+         ]);
+        
+        
+
+    }
+
+
+
+
+
+route-->
+
+Route::post('/update-product', [ProductController::class,'updateProduct'])->name('update.product');
+
+
+
+
+tota ajax for update-->
+
+ $(document).on('click','.update_product_input',function(event){
+               
+                
+               let id= $(this).data('id');
+               let pname= $(this).data('pname');
+               let price= $(this).data('price');
+
+               $('#up_id').val(id)
+               $('#up_pname').val(pname)
+               $('#up_price').val(price)
+              // alert(JSON.stringify(pname+price))
+       
+      });
+
+
+
+
+      $(document).on('click','.update_product',function(event){
+                event.preventDefault();
+                let up_id= $('#up_id').val();
+                 let up_pname= $('#up_pname').val();
+                 let up_price= $('#up_price').val();
+                // alert(JSON.stringify(pname+price));
+
+                $.ajax(
+                    {
+                        url:"{{route('update.product')}}",
+                        method:"post",
+                        data:{
+                            up_id:up_id,
+                            up_pname:up_pname,
+                            up_price:up_price,
+                        },
+                        success:function(response){
+
+                           // $('#successMes').append('<span class="text-success">Data insert success</span>');
+
+                          if(response.status="success"){
+                            $('#updateModal').modal('hide');
+                            $('#updateproduct')[0].reset();
+                            $('.table').load(location.href+' .table');
+
+                          }
+
+                        },
+                        error:function(error){
+                            $("#ErroMsg").find("ul").html('');
+                            $.each(error.responseJSON.errors, function(key, value ) {
+                            $('#ErroMsg').find("ul").append('<li class="text-danger" >'+value+'</li>');
+                    });
+
+
+                        }
+
+
+
+                   }
+
+
+
+                );
+
+
+
+            }
+
+
+
+            );s
+
+
+
+
+
+
+
+
+
+
+

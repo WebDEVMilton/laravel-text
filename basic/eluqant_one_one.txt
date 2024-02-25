@@ -1,0 +1,18 @@
+use Illuminate\Database\Eloquent\Relations\belongsTo;
+
+    public function user(){
+        return $this->belongsTo(User::class,"User_id");
+    }
+
+
+
+
+
+
+
+
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
+    public function phone(){
+        return $this->hasOne(phone::class,"User_id");
+    }

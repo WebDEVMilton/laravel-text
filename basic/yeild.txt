@@ -1,0 +1,9 @@
+mastering page-->
+
+@extends
+
+@section-->data send
+
+@yield--recieved
+
+@include('admin.login')

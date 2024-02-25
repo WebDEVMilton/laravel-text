@@ -1,0 +1,42 @@
+page expired------>
+add @csrf
+
+
+controller ----------->
+
+$userinfo=Auth::guard('web')->user();
+return redirect(url('/user/user-dashboard',["id"=>$userinfo->id,"name"=>$userinfo->name]));
+
+header token missmatch-------->
+add ajax header
+
+
+Uncaught ReferenceError: can't access lexical declaration 'formData' before initialization------>
+Wrong way------>
+let formData = new formData(this); //Formdata should be like this
+
+Right way------->
+let formData = new FormData(this);
+
+
+CSRF token mismatch----------->
+Easier way without changing the meta line.
+ _token: @json(csrf_token()),
+
+or
+headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+
+
+
+Delete error---------->
+"Call to a member function delete() on null"
+
+solution:
+wrong:find($id);
+right:use where('id',$id);
+
+
+
+

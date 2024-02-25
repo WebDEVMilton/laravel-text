@@ -1,0 +1,111 @@
+//Merge
+
+ function mergeData(){
+      $post-=DB::table('post')->get();
+        $user=DB::table('user')->get();
+        $totalData=$post->merge($user);
+
+
+        return   $totalData;
+
+    }
+
+//join
+
+
+
+    function LeftJoinData(){
+
+              $result=  DB::table('post')
+                ->leftjoin('user', 'post.user_id' ,'=','user.id')
+                ->get();
+
+                return  $result;
+            
+    }
+
+
+//insert
+
+//single
+
+ $result=  DB::table('posts')->insert(
+          
+              ['title'=>'','desc'=>''],
+          
+      );
+
+      if($result==true){
+          return "Data Insert Success";
+      }
+      else{
+          return " Data Insert Fail";
+      }
+
+    }
+
+
+
+//multiple
+
+
+ $result=  DB::table('posts')->insert(
+          [
+              ['title'=>'','desc'=>''],
+             
+              ['title'=>'','desc'=>''],
+              ['title'=>'','desc'=>''],
+          ]
+
+      );
+
+      if($result==true){
+          return "Data Insert Success";
+      }
+      else{
+          return " Data Insert Fail";
+      }
+
+    }
+
+
+//delete
+
+
+
+   function Delete(){
+      $result=  DB::table('post')->where('id','=','1')->delete();
+
+    }
+
+
+  function Delete(){
+      $result=  DB::table('post')->delete();
+
+    }
+
+
+  function Delete(){
+      $result=  DB::table('post')->truncate();
+
+    }
+
+//update
+
+
+ function Update(){
+
+       $result= DB::table('post')
+            ->where('title','=','')
+            ->update(['title'=>'','desc'=>'']);
+
+       if($result==true){
+           return "Data Update Success";
+       }
+       else{
+           return "Data Update fail";
+       }
+
+    }
+
+

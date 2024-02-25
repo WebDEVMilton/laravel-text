@@ -1,0 +1,32 @@
+command--------->
+php artisan make:middleware DisablebackButton
+
+Middleware------->
+
+public function handle(Request $request, Closure $next): Response
+    {
+        $response=$next($request);
+        $response->headers->set('Cache-Control','nocache, no-store, max-age=0, must-revalidate');
+        $response->headers->set('Pragma','no-cache');
+        $response->headers->set('Expires','Sat, 01 Jan 2000 00:00:00 GMT');
+        return $response;
+        
+    }
+
+
+
+kernel-------->
+'disable_back_btn' => \App\Http\Middleware\DisablebackButton::class,
+
+
+web.php------->
+
+Route::group(['middleware'=>'disable_back_btn'],function(){
+
+Route::group(['prefix'=>'admin','middleware'=>'admin'],function(){
+    // admin logout 
+    Route::get('/logout',[LoginController::class,'logout'])->name('admin.logout');
+});
+
+});
+

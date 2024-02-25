@@ -1,0 +1,185 @@
+without validation-->
+
+ajax part-->
+
+get class or id 
+
+$(document).on('click','.add_product',function(e){
+            e.preventDefault();
+
+            let pname = $('#pname').val();
+            let price = $('#price').();val
+            //alert(JSON.stringify(pname,price));
+
+post part with meesage-->
+
+ $.ajax({
+      url: "{{route('add.product')}}",
+      method:"post",
+      data:{      
+        pname:pname,
+        price:price,       
+      },
+      success:function(response){
+    
+        $('#successMsg').append('<span class="text-success">Data insert success</span>');
+        //console.log(response);
+        //$('#success').append('<span>response.success</span');
+
+      },
+      error: function(response) {
+       // $('#nameErrorMsg').text(response.responseJSON.errors.name);
+       
+    
+      },
+      });
+
+
+
+
+   controller part-->
+
+  data select-->
+
+ public function product(){
+          
+        $product=Product::orderBy('products.id','desc')->take(5)->get();
+        return view("products",['product'=> $product]);
+    }
+ 
+
+data insert-->
+
+ $product = new Product();
+        $product->pname = $request->pname;
+        $product->price = $request->price;
+      
+        $product->save();
+
+        //return response()->json(['success'=>'data insert Successfully']);
+
+
+
+
+  with validation-->
+
+  controller-->
+
+   public function store(Request $request)
+    {
+        $request->validate([
+            'pname'          => 'required',
+            'price'          => 'required',
+           
+        ]
+    );
+
+
+ajax error-->
+
+   $("#ErroMsg").find("ul").html('');
+        $.each( response.responseJSON.errors, function(key, value ) {
+              $('#ErroMsg').find("ul").append('<li >'+value+'</li>');
+          });
+
+
+
+ without refresh data-->
+
+
+ if(response.staus="success"){
+          $('.table').load(location.href+' .table');
+      
+        }
+
+          $('#addModal').modal('hide');/modal hide
+          $('#addproduct')[0].reset();/data reset
+
+
+A-z-->
+
+
+
+controller-->
+
+
+
+public function product(){
+          
+        $product=Product::orderBy('products.id','desc')->take(5)->get();
+        return view("products",['product'=> $product]);
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'pname'          => 'required',
+            'price'          => 'required',
+           
+        ]
+    );
+
+
+        $product = new Product();
+        $product->pname = $request->pname;
+        $product->price = $request->price;
+      
+        $product->save();
+
+        //return response()->json(['success'=>'data insert Successfully']);
+    }
+
+
+
+
+ajax-->
+
+
+   $(document).on('click','.add_product',function(e){
+            e.preventDefault();
+
+            let pname = $('#pname').val();
+            let price = $('#price').val();
+            //alert(JSON.stringify(pname,price));
+   
+    
+    $.ajax({
+      url: "{{route('add.product')}}",
+      method:"post",
+      data:{      
+        pname:pname,
+        price:price,       
+      },
+      success:function(response){
+    
+        $('#successMsg').append('<span class="text-success">Data insert success</span>');
+        //console.log(response);
+        //$('#success').append('<span>response.success</span');
+        if(response.staus="success"){
+
+          $('#addModal').modal('hide');
+          $('#addproduct')[0].reset();
+          $('.table').load(location.href+' .table');
+
+        }
+
+        
+      
+
+      },
+      error: function(response) {
+        $("#ErroMsg").find("ul").html('');
+        $.each( response.responseJSON.errors, function(key, value ) {
+              $('#ErroMsg').find("ul").append('<li >'+value+'</li>');
+          });
+      },
+      });
+    });
+
+
+  
+
+
+
+
+

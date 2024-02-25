@@ -1,0 +1,21 @@
+Go to the Providers/AppServiceProvider.php-------->
+use it->
+Paginator::useBootstrap();  
+
+Key will be same!!
+
+Controller------>
+    function paginateProduct(){
+        $product = Addproduct::with('subcategory')->latest()->paginate(3);
+
+        return view("Admin.product.paginationProduct",['product'=>$product])->render();
+    }
+
+
+
+web.php------->
+// get paginate 
+Route::get('/pagination', [ProductlistController::class, 'paginateProduct']);
+
+blade------->
+{{ $product->links() }} 

@@ -1,0 +1,39 @@
+php-76%
+
+
+
+laravel--->
+
+mvc--
+
+model->
+view-->
+controller-->
+
+
+
+data store,data fetch-->model
+
+logic,program->Controller
+
+view-->
+
+
+xammp,composer,code editor.
+
+data insert-->
+
+
+view->controller->model->database
+
+
+fetch-->
+
+database->model->controller->view
+
+https://laravel.com/docs/10.x/installation
+
+
+
+
+
